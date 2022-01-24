@@ -1,5 +1,6 @@
 package jm.task.core.jdbc;
 
+import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
@@ -7,21 +8,19 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        UserServiceImpl table = new UserServiceImpl();
-        table.createUsersTable();
 
-        table.saveUser("Barak", "Obama", (byte) 77);
-        table.saveUser("Pikachu", "TheStorm", (byte) 12);
-        table.saveUser("Lyuban", "TheProgger", (byte) 23);
-        table.saveUser("Pushok", "Gribanov", (byte) 3);
-
-        List<User> list = table.getAllUsers();
+        UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
+        userDaoHibernate.createUsersTable();
+        userDaoHibernate.saveUser("Barak", "Obama", (byte) 77);
+        userDaoHibernate.saveUser("Pikachu", "TheStorm", (byte) 12);
+        userDaoHibernate.saveUser("Lyuban", "TheProgger", (byte) 23);
+        userDaoHibernate.saveUser("Pushok", "Gribanov", (byte) 3);
+        List<User> list = userDaoHibernate.getAllUsers();
         for (Object user : list
         ) {
             System.out.println(user.toString());
         }
-
-        table.cleanUsersTable();
-        table.dropUsersTable();
+        userDaoHibernate.cleanUsersTable();
+        userDaoHibernate.dropUsersTable();
     }
 }
